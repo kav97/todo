@@ -56,7 +56,7 @@ public class ToDoController {
     public ResponseEntity<?> deleteToDo(@PathVariable String id) {
         boolean isDeleted = toDoService.deleteById(parseInt(id));
 
-        if (isDeleted == false) {
+        if (!isDeleted) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Couldn't find a todo to delete with that id");
         }
 
