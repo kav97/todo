@@ -38,7 +38,7 @@ public class ToDoService {
         }
 
         if (toDo.getCreatedBy() == null || toDo.getCreatedBy().length() < 1 || toDo.getCreatedBy().length() > 255) {
-            throw new RuntimeException("ToDo must have created by");
+            throw new RuntimeException("ToDo must have created by of length 1 - 255 characters long");
         }
 
         return toDoRepository.save(toDo);
