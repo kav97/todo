@@ -33,11 +33,11 @@ public class ToDoService {
     }
 
     public ToDo createToDo(ToDo toDo) {
-        if (toDo.getText() == null || toDo.getText().length() < 1) {
-            throw new RuntimeException("ToDo must have text");
+        if (toDo.getText() == null || toDo.getText().length() < 1 || toDo.getText().length() > 255) {
+            throw new RuntimeException("ToDo must have text between 1 - 255 characters long");
         }
 
-        if (toDo.getCreatedBy() == null || toDo.getCreatedBy().length() < 1) {
+        if (toDo.getCreatedBy() == null || toDo.getCreatedBy().length() < 1 || toDo.getCreatedBy().length() > 255) {
             throw new RuntimeException("ToDo must have created by");
         }
 
