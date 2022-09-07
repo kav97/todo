@@ -42,7 +42,7 @@ public class ToDoController {
         return ResponseEntity.status(HttpStatus.OK).body(toDos);
     }
 
-    @PostMapping("todo")
+    @PostMapping("/todo")
     public ResponseEntity<?> createToDo(@RequestBody ToDo toDo) {
         try {
             ToDo newToDo = toDoService.createToDo(toDo);
@@ -51,6 +51,22 @@ public class ToDoController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+    @PutMapping("/todo/{id}")
+    public ResponseEntity<?> updateToDo(@RequestBody ToDo updatedToDo, @PathVariable String id) {
+        try {
+            boolean isUpdated = toDoService.updateById(updatedToDo, parseInt(id));
+
+            if (!isUpdated) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Couldn't find a todo to update with that id");
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body("Todo updated successfully!");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
 
     @DeleteMapping("/todo/{id}")
     public ResponseEntity<?> deleteToDo(@PathVariable String id) {

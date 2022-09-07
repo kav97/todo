@@ -44,6 +44,24 @@ public class ToDoService {
         return toDoRepository.save(toDo);
     }
 
+    public boolean updateById(ToDo updatedToDo, int id) {
+        ToDo toDoToUpdate = toDoRepository.findById(id).orElse(null);
+        String getUpdatedToDo = updatedToDo.getText();
+
+        if (toDoToUpdate == null) {
+            return false;
+        }
+
+        if(getUpdatedToDo == null || getUpdatedToDo.length() < 1 || getUpdatedToDo.length() > 255) {
+            throw new RuntimeException("ToDo must have text between 1 - 255 characters long");
+        }
+
+        toDoToUpdate.setText(getUpdatedToDo);
+
+        toDoRepository.save(toDoToUpdate);
+        return true;
+    }
+
     public boolean deleteById(int id){
         ToDo toDoToDelete = toDoRepository.findById(id).orElse(null);
 
